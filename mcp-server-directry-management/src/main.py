@@ -12,6 +12,7 @@
 # **************************************************************************************************
 
 import os
+import shutil
 from typing import List
 from typing import Optional
 from mcp.server.fastmcp import FastMCP
@@ -132,6 +133,25 @@ def move_or_rename(source_path: str, destination_path: str) -> str:
     """
     os.rename(src=source_path, dst=destination_path)
     return f"File or directory '{source_path}' has been moved or renamed to '{destination_path}'."
+
+
+@mcp.tool()
+def copy_file_or_folder(source_path: str, destination_path: str) -> str:
+    """Tool to copy a file or directory
+
+    Args:
+        source_path (str): Path to the file or directory
+        destination_path (str): Path to the file or directory
+
+    Returns:
+        str: Message indicating the file or directory has been copied
+    """
+    if os.path.isdir(path=source_path):
+        shutil.copytree(src=source_path, dst=destination_path)
+        return f"Directory '{source_path}' has been copied to '{destination_path}'."
+    else:
+        shutil.copy2(src=source_path, dst=destination_path)
+        return f"File '{source_path}' has been copied to '{destination_path}'."
 
 
 if __name__ == "__main__":
