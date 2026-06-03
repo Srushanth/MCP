@@ -33,3 +33,7 @@ def format_file(file_path: str) -> str:
     with open(file=file_path, mode="w", encoding="utf-8") as f:
         f.write(formatted_contents)
     return f"File '{file_path}' has been formatted successfully."
+
+
+if __name__ == "__main__":
+    mcp.run(transport="stdio")
