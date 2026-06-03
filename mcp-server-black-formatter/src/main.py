@@ -11,6 +11,25 @@
 #
 # **************************************************************************************************
 
+import black
 from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("black-formatter")
+
+
+@mcp.tool()
+def format_file(file_path: str) -> str:
+    """Tool to format a python file using the black formatter
+
+    Args:
+        file_path (str): Path to the file to be formatted
+
+    Returns:
+        str: Message indicating the file has been formatted successfully
+    """
+    with open(file=file_path, mode="r", encoding="utf-8") as f:
+        contents = f.read()
+    formatted_contents = black.format_str(src_contents=contents, mode=black.FileMode())
+    with open(file=file_path, mode="w", encoding="utf-8") as f:
+        f.write(formatted_contents)
+    return f"File '{file_path}' has been formatted successfully."
