@@ -168,5 +168,33 @@ def get_path_metadata(path: str) -> dict:
     return metadata
 
 
+@mcp.tool()
+def path_exists(path: str) -> bool:
+    """Tool to check if a path exists
+
+    Args:
+        path (str): Path to the file or directory
+
+    Returns:
+        bool: True if the path exists, False otherwise
+    """
+    return os.path.exists(path=path)
+
+
+@mcp.tool()
+def search_files(directory_path: str, query: str) -> List[str]:
+    """Tool to search for files in a directory
+
+    Args:
+        directory_path (str): Path to the directory
+        query (str): Query to search for
+
+    Returns:
+        List[str]: List of files that match the query
+    """
+    list_of_files = list_files(directory_path=directory_path)
+    return [file for file in list_of_files if query.lower() in file.lower()]
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
