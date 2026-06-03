@@ -154,5 +154,19 @@ def copy_file_or_folder(source_path: str, destination_path: str) -> str:
         return f"File '{source_path}' has been copied to '{destination_path}'."
 
 
+@mcp.tool()
+def get_path_metadata(path: str) -> dict:
+    """Tool to get the metadata of a file or directory
+
+    Args:
+        path (str): Path to the file or directory
+
+    Returns:
+        dict: Metadata of the file or directory
+    """
+    metadata = os.stat(path=path)
+    return metadata
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
