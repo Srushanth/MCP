@@ -13,6 +13,7 @@
 
 import os
 from typing import List
+from typing import Optional
 from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("directory-management")
@@ -83,6 +84,25 @@ def read_file_contents(file_path: str) -> str:
     with open(file=file_path, mode="r", encoding="utf-8") as f:
         contents = f.read()
         return contents
+
+
+@mcp.tool()
+def write_file_contents(file_path: str, contents: str, overwrite: bool = False) -> str:
+    """Tool to write the contents of a file
+
+    Args:
+        file_path (str): Path to the file
+        contents (str): Contents to be written to the file
+        overwrite (bool, optional): Whether to overwrite the file if it exists. Defaults to False.
+
+    Returns:
+        str: Message indicating the file has been written
+    """
+    if os.path.exists(path=file_path) and not overwrite:
+        return f"File '{file_path}' already exists. Use overwrite=True to overwrite the file."
+    with open(file=file_path, mode="w", encoding="utf-8") as f:
+        f.write(contents)
+        return f"File '{file_path}' has been written successfully."
 
 
 if __name__ == "__main__":
