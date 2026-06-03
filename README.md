@@ -57,10 +57,11 @@ A Python-based FastMCP server providing a tool to format Python files using the 
 
 Here is a checklist of ideas for future MCP servers to enhance code quality and developer workflows:
 
-- [ ] **`mcp-server-ruff`** (Linter & Import Sorter)
-  - [ ] `lint_file`: Analyzes a file and lists style/syntax violations.
+- [ ] **`mcp-server-ruff`** (Linter, Formatter & Modernizer)
+  - [ ] `lint_file`: Analyzes a file and lists style/syntax violations (over 900 built-in rules).
+  - [ ] `format_file`: Formats code to match PEP 8 guidelines (drop-in Black replacement).
   - [ ] `auto_fix_file`: Automatically fixes safe linting and style issues.
-  - [ ] `sort_imports`: Sorts and organizes python imports.
+  - [ ] `modernize_syntax`: Upgrades older Python code patterns to modern syntax (e.g. converting old string formatting to f-strings).
 - [ ] **`mcp-server-pyright` / `mcp-server-mypy`** (Type Checker)
   - [ ] `check_types_in_file`: Verifies type annotations and safety on a file.
   - [ ] `check_types_in_project`: Analyzes the whole project for type errors.
