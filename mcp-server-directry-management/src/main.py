@@ -19,7 +19,7 @@ mcp = FastMCP("directory-management")
 
 
 @mcp.tool()
-def list_files(directory_path: str) -> List[str]:
+def list_dir(directory_path: str) -> List[str]:
     """Tool to list files in a directory
 
     Args:
@@ -32,4 +32,4 @@ def list_files(directory_path: str) -> List[str]:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="http", host="localhost", port=2000)
+    mcp.run(transport="stdio")
