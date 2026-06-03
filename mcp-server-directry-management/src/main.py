@@ -70,5 +70,20 @@ def list_folders(directory_path: str) -> List[str]:
     return list_of_folders
 
 
+@mcp.tool()
+def read_file_contents(file_path: str) -> str:
+    """Tool to read the contents of a file
+
+    Args:
+        file_path (str): Path to the file
+
+    Returns:
+        str: Contents of the file
+    """
+    with open(file=file_path, mode="r", encoding="utf-8") as f:
+        contents = f.read()
+        return contents
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
