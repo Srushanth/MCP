@@ -119,5 +119,20 @@ def create_directory(directory_path: str) -> str:
     return f"Directory '{directory_path}' has been created successfully."
 
 
+@mcp.tool()
+def move_or_rename(source_path: str, destination_path: str) -> str:
+    """Tool to move or rename a file or directory
+
+    Args:
+        source_path (str): Path to the file or directory
+        destination_path (str): Path to the file or directory
+
+    Returns:
+        str: Message indicating the file or directory has been moved or renamed
+    """
+    os.rename(src=source_path, dst=destination_path)
+    return f"File or directory '{source_path}' has been moved or renamed to '{destination_path}'."
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
