@@ -32,5 +32,24 @@ def list_dir(directory_path: str) -> List[str]:
     return list_of_items
 
 
+@mcp.tool()
+def list_files(directory_path: str) -> List[str]:
+    """Tool to list files in a directory
+
+    Args:
+        directory_path (str): Path to the directory
+
+    Returns:
+        List[str]: List of files in the directory
+    """
+    list_of_items = os.listdir(path=directory_path)
+    list_of_files = [
+        item
+        for item in list_of_items
+        if os.path.isfile(os.path.join(directory_path, item))
+    ]
+    return list_of_files
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
