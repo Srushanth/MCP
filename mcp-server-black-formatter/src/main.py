@@ -10,3 +10,7 @@
 #  📖 Description: Formats python files using the black formatter
 #
 # **************************************************************************************************
+
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("black-formatter")
