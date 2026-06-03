@@ -7,7 +7,19 @@
 #  🖥️ Author: Srushanth Baride
 #  ✉️ Email: Srushanth.Baride@gmail.com
 #  📅 Date: 03-June-2026
-#  📖 Description: MCP Server providing tools to list directory contents, files, and folders
+#  📖 Description: Provides a set of tools to perform operations on files and directories.
+#               The tools include:
+#                   list_dir,
+#                   list_files,
+#                   list_folders,
+#                   read_file_contents,
+#                   write_file_contents,
+#                   create_directory,
+#                   move_or_rename,
+#                   copy_file_or_folder,
+#                   get_path_metadata,
+#                   path_exists,
+#                   search_files.
 #
 # **************************************************************************************************
 
