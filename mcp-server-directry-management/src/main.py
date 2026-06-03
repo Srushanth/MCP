@@ -28,7 +28,8 @@ def list_dir(directory_path: str) -> List[str]:
     Returns:
         List[str]: List of files in the directory
     """
-    return os.listdir(path=directory_path)
+    list_of_items = os.listdir(path=directory_path)
+    return list_of_items
 
 
 if __name__ == "__main__":
