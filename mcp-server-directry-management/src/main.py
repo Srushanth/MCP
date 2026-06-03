@@ -105,5 +105,19 @@ def write_file_contents(file_path: str, contents: str, overwrite: bool = False) 
         return f"File '{file_path}' has been written successfully."
 
 
+@mcp.tool()
+def create_directory(directory_path: str) -> str:
+    """Tool to create a directory
+
+    Args:
+        directory_path (str): Path to the directory
+
+    Returns:
+        str: Message indicating the directory has been created
+    """
+    os.makedirs(path=directory_path, exist_ok=True)
+    return f"Directory '{directory_path}' has been created successfully."
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
