@@ -6,7 +6,7 @@ A Model Context Protocol (MCP) server built with Python and [FastMCP](https://gi
 
 - **STDIO Transport**: Runs via standard input/output, which is compatible with most MCP hosts and clients (e.g., Gemini IDE, Claude Desktop).
 - **Tools**:
-  - `list_files`: List files and folders within a given directory path.
+  - `list_dir`: List files and folders within a given directory path.
 
 ## Prerequisites
 
@@ -44,7 +44,7 @@ Add the following configuration to your client's settings file (e.g., `mcp_confi
         "run",
         "--project",
         "c:/GitHub/MCP/mcp-server-directry-management",
-        "src/main.py"
+        "c:/GitHub/MCP/mcp-server-directry-management/src/main.py"
       ]
     }
   }
@@ -89,7 +89,7 @@ If you want to run this server over HTTP using Server-Sent Events (SSE):
 
 ## Available Tools
 
-### `list_files`
+### `list_dir`
 
 List the contents of a directory path.
 
