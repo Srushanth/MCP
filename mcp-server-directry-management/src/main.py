@@ -7,7 +7,7 @@
 #  🖥️ Author: Srushanth Baride
 #  ✉️ Email: Srushanth.Baride@gmail.com
 #  📅 Date: 03-June-2026
-#  📖 Description: MCP Server to list files in a directory
+#  📖 Description: MCP Server providing tools to list directory contents, files, and folders
 #
 # **************************************************************************************************
 
