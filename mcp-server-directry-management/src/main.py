@@ -65,6 +65,21 @@ def list_files(directory_path: str) -> List[str]:
 
 
 @mcp.tool()
+def list_files_by_extension(directory_path: str, extension: str) -> List[str]:
+    """Tool to list files with a specific extension in a directory
+
+    Args:
+        directory_path (str): Path to the directory
+        extension (str): Extension of the files to list
+
+    Returns:
+        List[str]: List of files with the specific extension in the directory
+    """
+    list_of_files = list_files(directory_path=directory_path)
+    return [file for file in list_of_files if file.endswith(extension)]
+
+
+@mcp.tool()
 def list_folders(directory_path: str) -> List[str]:
     """Tool to list folders in a directory
 
