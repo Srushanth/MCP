@@ -25,6 +25,12 @@ The repository is structured to facilitate easy understanding and usage of MCP w
     │   ├── 📁src
     │   │   └── main.py (Clock Server)
     │   └── uv.lock
+    ├── 📁mcp-server-black-formatter
+    │   ├── pyproject.toml
+    │   ├── README.md
+    │   ├── 📁src
+    │   │   └── main.py (Black Formatter Server)
+    │   └── uv.lock
     └── 📁mcp-server-directry-management
         ├── pyproject.toml
         ├── README.md
@@ -43,4 +49,8 @@ A Python-based FastMCP server offering comprehensive filesystem tools including 
 
 ### 3. Clock Server (`MCP_Server`)
 A simple Python-based FastMCP server providing timezone-aware date and time capabilities.
+
+### 4. Black Formatter Server (`mcp-server-black-formatter`)
+A Python-based FastMCP server providing a tool to format Python files using the Black code formatter.
+
 
