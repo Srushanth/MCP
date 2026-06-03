@@ -28,7 +28,7 @@ def get_current_date_time_in_time_zone(time_zone: str):
 
 root_agent = Agent(
     name="clock_agent",
-    model="gemini-2.0-flash",
+    model="gemini-3.1-pro-preview",
     description="Agent to get the current time",
     instruction="Get the current time",
     tools=[get_current_date_time_iso_format, get_current_date_time_in_time_zone],
