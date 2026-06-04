@@ -7,7 +7,7 @@
 #  🖥️ Author: Srushanth Baride
 #  ✉️ Email: Srushanth.Baride@gmail.com
 #  📅 Date: 04-June-2026
-#  📖 Description:
+#  📖 Description: Static type checking, type stub generation, and package verification using Pyright
 #
 # **************************************************************************************************
 import os
