@@ -1,6 +1,12 @@
-def main():
-    print("Hello from mcp-server-ruff!")
+"""MCP Server for Ruff"""
 
-
-if __name__ == "__main__":
-    main()
+# -*- coding: utf-8 -*-
+# **************************************************************************************************
+#
+#  🚀 Created by Srushanth Baride
+#  🖥️ Author: Srushanth Baride
+#  ✉️ Email: Srushanth.Baride@gmail.com
+#  📅 Date: 04-June-2026
+#  📖 Description:
+#
+# **************************************************************************************************
