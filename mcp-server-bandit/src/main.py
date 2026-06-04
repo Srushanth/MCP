@@ -17,7 +17,7 @@ from mcp.server.fastmcp import FastMCP
 mcp = FastMCP("bandit")
 
 
-@mcp.tool()
+@mcp.tool(name="health", description="Check the health of the Bandit MCP server.")
 def health() -> str:
     """Check the health of the Bandit MCP server.
 
