@@ -147,5 +147,39 @@ def check_types_in_project(project_path: str = ".") -> str:
                 pass
 
 
+@mcp.tool()
+def create_type_stubs(package_name: str, project_path: str = ".") -> str:
+    """Generate type stub files (.pyi) for a third-party package using pyright.
+
+    Args:
+        package_name (str): The name of the package/import to generate stubs for.
+        project_path (str): The path to the project directory. Defaults to ".".
+
+    Returns:
+        str: The results of the stub generation.
+    """
+    if not os.path.isdir(project_path):
+        return f"Error: '{project_path}' is not a valid directory."
+
+    try:
+        # Pyright creates stubs relative to the current working directory, or a specified project.
+        result = subprocess.run(
+            [sys.executable, "-m", "pyright", "--createstub", package_name],
+            capture_output=True,
+            text=True,
+            check=False,
+            cwd=project_path,
+        )
+        output = result.stdout or result.stderr or ""
+        if result.returncode == 0:
+            return f"Successfully created type stubs for package '{package_name}':\n{output}"
+        else:
+            return (
+                f"Failed to create type stubs for package '{package_name}':\n{output}"
+            )
+    except Exception as e:
+        return f"Error creating type stubs: {str(e)}"
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
