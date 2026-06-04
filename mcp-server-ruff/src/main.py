@@ -125,3 +125,39 @@ def auto_fix_code(code: str) -> str:
             return f"Error fixing code:\n{output}"
     except Exception as e:
         return f"Error running auto-fix on code: {str(e)}"
+
+
+@mcp.rool()
+def modernize_syntax(file_path: str) -> str:
+    """Tool to modernize syntax of a python file using the Ruff modernize-syntax rule
+
+    Args:
+        file_path (str): Path to the file to be modernized
+
+    Returns:
+        str: Message indicating the file has been modernized successfully
+    """
+    try:
+        # Run ruff check on the file
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "ruff",
+                "check",
+                file_path,
+                "--fix",
+                "--rule",
+                "RUF001",
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode == 0:
+            return f"File '{file_path}' has been modernized successfully."
+        else:
+            output = result.stderr or result.stdout
+            return f"Error modernizing file '{file_path}':\n{output}"
+    except Exception as e:
+        return f"Error running modernize on '{file_path}': {str(e)}"
