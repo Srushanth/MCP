@@ -19,6 +19,16 @@ mcp = FastMCP("clock")
 
 
 @mcp.tool()
+def health() -> str:
+    """Tool to check the health of the Clock MCP server
+
+    Returns:
+        str: Message indicating the health of the Clock MCP server
+    """
+    return "Clock MCP server is healthy."
+
+
+@mcp.tool()
 async def get_current_date_time_iso_format():
     """Get the current date and time in ISO format"""
     return datetime.datetime.now().isoformat()
