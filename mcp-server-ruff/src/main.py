@@ -71,3 +71,30 @@ def format_file(file_path: str) -> str:
             return f"Error formatting file '{file_path}':\n{output}"
     except Exception as e:
         return f"Error running formatter on '{file_path}': {str(e)}"
+
+
+@mcp.tool()
+def auto_fix_file(file_path: str) -> str:
+    """Tool to auto fix a python file using the Ruff auto-fixer
+
+    Args:
+        file_path (str): Path to the file to be auto-fixed
+
+    Returns:
+        str: Message indicating the file has been auto-fixed successfully
+    """
+    try:
+        # Run ruff check on the file
+        result = subprocess.run(
+            [sys.executable, "-m", "ruff", "check", file_path, "--fix"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode == 0:
+            return f"File '{file_path}' has been auto-fixed successfully."
+        else:
+            output = result.stderr or result.stdout
+            return f"Error auto-fixing file '{file_path}':\n{output}"
+    except Exception as e:
+        return f"Error running auto-fix on '{file_path}': {str(e)}"
