@@ -20,7 +20,7 @@ from mcp.server.fastmcp import FastMCP
 mcp = FastMCP("pytest")
 
 
-@mcp.tool()
+@mcp.tool(name="health", description="Check the health and version of the pytest MCP server.")
 def health() -> str:
     """Check the health and version of the pytest MCP server.
 
@@ -43,7 +43,7 @@ def health() -> str:
         return f"pytest MCP server is unhealthy: {str(e)}"
 
 
-@mcp.tool()
+@mcp.tool(name="run_tests", description="Run pytest on the specified file or directory path.")
 def run_tests(path: str) -> str:
     """Run pytest on the given path.
 
@@ -68,7 +68,7 @@ def run_tests(path: str) -> str:
         return f"Error running pytest on '{path}': {str(e)}"
 
 
-@mcp.tool()
+@mcp.tool(name="run_tests_with_coverage", description="Run pytest with code coverage analysis using pytest-cov.")
 def run_tests_with_coverage(path: str) -> str:
     """Run pytest with code coverage analysis on the given path.
 
