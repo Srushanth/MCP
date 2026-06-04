@@ -25,6 +25,30 @@ def health() -> str:
 
 
 @mcp.tool()
+def list_rules() -> str:
+    """Tool to list all available rules in Ruff
+
+    Returns:
+        str: Message indicating the rules available in Ruff
+    """
+    try:
+        # Run ruff check on the file
+        result = subprocess.run(
+            [sys.executable, "-m", "ruff", "check", "--list-rules"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode == 0:
+            return f"Rules available: {result.stdout}"
+        else:
+            output = result.stderr or result.stdout
+            return f"Error listing rules: {output}"
+    except Exception as e:
+        return f"Error listing rules: {str(e)}"
+
+
+@mcp.tool()
 def lint_file(file_path: str) -> str:
     """Tool to lint a file using Ruff
 
