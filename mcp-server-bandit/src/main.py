@@ -39,5 +39,27 @@ def scan_vulnerabilities_in_file(file_path: str) -> dict:
         return {"stdout": e.stdout, "stderr": e.stderr}
 
 
+@mcp.tool()
+def check_dependencies_vulnerabilities(dependency_file: str) -> dict:
+    """Check for security vulnerabilities in a dependency file.
+
+    Args:
+        dependency_file (str): The path to the dependency file to scan.
+
+    Returns:
+        dict: Dictionary containing the stdout and stderr of the Bandit scan.
+    """
+    try:
+        result = subprocess.run(
+            ["bandit", "-r", dependency_file],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        return {"stdout": result.stdout, "stderr": result.stderr}
+    except subprocess.CalledProcessError as e:
+        return {"stdout": e.stdout, "stderr": e.stderr}
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
