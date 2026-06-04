@@ -1,0 +1,12 @@
+[project]
+name = "mcp-server-bandit"
+version = "0.1.0"
+description = "An MCP server for Bandit (Security & Vulnerability Scanner)"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "bandit>=1.9.4",
+    "httpx>=0.28.1",
+    "mcp[cli]>=1.27.2",
+    "pip-audit>=2.10.0",
+]
