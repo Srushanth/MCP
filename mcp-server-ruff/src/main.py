@@ -98,3 +98,30 @@ def auto_fix_file(file_path: str) -> str:
             return f"Error auto-fixing file '{file_path}':\n{output}"
     except Exception as e:
         return f"Error running auto-fix on '{file_path}': {str(e)}"
+
+
+@mcp.tool()
+def auto_fix_code(code: str) -> str:
+    """Tool to auto fix python code using the Ruff auto-fixer
+
+    Args:
+        code (str): The python code to be fixed
+
+    Returns:
+        str: The fixed python code
+    """
+    try:
+        # Run ruff check on the code
+        result = subprocess.run(
+            [sys.executable, "-m", "ruff", "check", "--fix", "--code", code],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode == 0:
+            return "Code has been fixed successfully."
+        else:
+            output = result.stderr or result.stdout
+            return f"Error fixing code:\n{output}"
+    except Exception as e:
+        return f"Error running auto-fix on code: {str(e)}"
