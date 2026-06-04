@@ -20,7 +20,11 @@ mcp = FastMCP("ruff")
 
 @mcp.tool()
 def health() -> str:
-    """Tool to check the health of the Ruff MCP server"""
+    """Tool to check the health of the Ruff MCP server
+
+    Returns:
+        str: Message indicating the health of the Ruff MCP server
+    """
     return "Ruff MCP server is healthy."
 
 
