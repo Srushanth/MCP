@@ -43,6 +43,12 @@ The repository is structured to facilitate easy understanding and usage of MCP w
     │   ├── 📁src
     │   │   └── main.py (Pyright Server)
     │   └── uv.lock
+    ├── 📁mcp-server-pytest
+    │   ├── pyproject.toml
+    │   ├── README.md
+    │   ├── 📁src
+    │   │   └── main.py (Pytest Server)
+    │   └── uv.lock
     ├── 📁mcp-server-radon
     │   ├── pyproject.toml
     │   ├── README.md
@@ -90,7 +96,13 @@ A Python-based FastMCP server providing static type checking and type analysis p
 * `verify_type_completeness`: Verifies the type completeness of a `py.typed` package.
 * `check_types_in_code`: Analyzes type errors in a raw Python code snippet.
 
-### 7. Radon Server (`mcp-server-radon`)
+### 7. Pytest Server (`mcp-server-pytest`)
+A Python-based FastMCP server providing test runner capabilities and code coverage analysis. Supports `health` checks.
+* `health`: Check server health status and pytest version.
+* `run_tests`: Runs unit tests inside a directory or file using pytest.
+* `run_tests_with_coverage`: Runs unit tests with code coverage analysis using pytest and pytest-cov.
+
+### 8. Radon Server (`mcp-server-radon`)
 A Python-based FastMCP server providing code complexity and quality metrics powered by Radon. Supports `health` checks.
 * `health`: Check server health status and Radon version.
 * `get_complexity_report`: Rates function and class complexity using Cyclomatic Complexity.
@@ -127,6 +139,6 @@ Here is a checklist of ideas for future MCP servers to enhance code quality and 
   - [x] `get_halstead_metrics`: Computes Halstead metrics (operands, operators, volume, difficulty, effort).
   - [x] `get_complexity_of_code`: Calculates Cyclomatic Complexity for a raw code snippet.
   - [x] `get_maintainability_of_code`: Calculates the maintainability score of a raw code snippet.
-- [ ] **`mcp-server-pytest`** (Test Runner & Coverage)
-  - [ ] `run_tests`: Runs unit tests for a directory or file.
-  - [ ] `run_tests_with_coverage`: Runs tests and returns statement coverage statistics.
+- [x] **`mcp-server-pytest`** (Test Runner & Coverage)
+  - [x] `run_tests`: Runs unit tests for a directory or file.
+  - [x] `run_tests_with_coverage`: Runs tests and returns statement coverage statistics.
