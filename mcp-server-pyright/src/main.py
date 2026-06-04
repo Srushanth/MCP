@@ -214,5 +214,44 @@ def verify_type_completeness(package_name: str, project_path: str = ".") -> str:
         return f"Error verifying type completeness: {str(e)}"
 
 
+@mcp.tool()
+def check_types_in_code(code: str) -> str:
+    """Check types in a raw Python code snippet using pyright.
+
+    Args:
+        code (str): The Python code to check.
+
+    Returns:
+        str: The results of the type check.
+    """
+    try:
+        with tempfile.NamedTemporaryFile(
+            suffix=".py", mode="w", delete=False, encoding="utf-8"
+        ) as temp_file:
+            temp_file.write(code)
+            temp_file_name = temp_file.name
+
+        try:
+            result = subprocess.run(
+                [sys.executable, "-m", "pyright", temp_file_name],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            # Remove reference to the temp file path in the output for cleaner display
+            output = result.stdout or result.stderr or ""
+            output = output.replace(temp_file_name, "snippet.py")
+
+            if result.returncode == 0:
+                return f"Type checking passed for code snippet:\n{output}"
+            else:
+                return f"Type checking failed for code snippet:\n{output}"
+        finally:
+            if os.path.exists(temp_file_name):
+                os.remove(temp_file_name)
+    except Exception as e:
+        return f"Error running type check on code snippet: {str(e)}"
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
