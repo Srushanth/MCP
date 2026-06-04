@@ -126,5 +126,58 @@ def check_dependencies_vulnerabilities(dependency_file: str) -> dict:
         return {"error": f"Error running pip-audit: {str(e)}"}
 
 
+@mcp.tool()
+def scan_vulnerabilities_in_project(
+    project_path: str = ".",
+    severity_level: str = "all",
+    confidence_level: str = "all",
+) -> dict:
+    """Scan all Python files in a project/directory recursively using Bandit.
+
+    Args:
+        project_path (str): Path to the project directory. Defaults to ".".
+        severity_level (str): Report only issues of this level or higher (all, low, medium, high). Defaults to "all".
+        confidence_level (str): Report only issues of this level or higher (all, low, medium, high). Defaults to "all".
+
+    Returns:
+        dict: Scan results including issues found or error messages.
+    """
+    if not os.path.isdir(project_path):
+        return {"error": f"Path '{project_path}' is not a valid directory."}
+
+    cmd = [sys.executable, "-m", "bandit", "-r", project_path, "-f", "json"]
+
+    if severity_level in ["low", "medium", "high"]:
+        cmd.extend(["--severity-level", severity_level])
+    if confidence_level in ["low", "medium", "high"]:
+        cmd.extend(["--confidence-level", confidence_level])
+
+    try:
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+        try:
+            if result.stdout.strip():
+                return json.loads(result.stdout)
+            return {
+                "output": result.stdout,
+                "stderr": result.stderr,
+                "exit_code": result.returncode,
+            }
+        except Exception as json_err:
+            return {
+                "error": f"Failed to parse Bandit JSON output: {str(json_err)}",
+                "stdout": result.stdout,
+                "stderr": result.stderr,
+                "exit_code": result.returncode,
+            }
+    except Exception as e:
+        return {"error": f"Error running Bandit on project: {str(e)}"}
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
