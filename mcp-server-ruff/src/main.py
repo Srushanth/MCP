@@ -161,3 +161,7 @@ def modernize_syntax(file_path: str) -> str:
             return f"Error modernizing file '{file_path}':\n{output}"
     except Exception as e:
         return f"Error running modernize on '{file_path}': {str(e)}"
+
+
+if __name__ == "__main__":
+    mcp.run(transport="stdio")
