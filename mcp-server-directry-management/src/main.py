@@ -32,6 +32,16 @@ mcp = FastMCP("directory-management")
 
 
 @mcp.tool()
+def health() -> str:
+    """Tool to check the health of the Directory Management MCP server
+
+    Returns:
+        str: Message indicating the health of the Directory Management MCP server
+    """
+    return "Directory Management MCP server is healthy."
+
+
+@mcp.tool()
 def list_dir(directory_path: str) -> List[str]:
     """Tool to list files in a directory
 
