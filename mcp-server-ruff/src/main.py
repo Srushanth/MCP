@@ -19,6 +19,12 @@ mcp = FastMCP("ruff")
 
 
 @mcp.tool()
+def health() -> str:
+    """Tool to check the health of the Ruff MCP server"""
+    return "Ruff MCP server is healthy."
+
+
+@mcp.tool()
 def lint_file(file_path: str) -> str:
     """Tool to lint a file using Ruff
 
