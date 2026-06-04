@@ -31,7 +31,10 @@ from mcp.server.fastmcp import FastMCP
 mcp = FastMCP("directory-management")
 
 
-@mcp.tool(name="health", description="Check the health of the Directory Management MCP server.")
+@mcp.tool(
+    name="health",
+    description="Check the health of the Directory Management MCP server.",
+)
 def health() -> str:
     """Tool to check the health of the Directory Management MCP server
 
@@ -74,7 +77,10 @@ def list_files(directory_path: str) -> List[str]:
     return list_of_files
 
 
-@mcp.tool(name="list_files_by_extension", description="List files in a directory that have a specific file extension.")
+@mcp.tool(
+    name="list_files_by_extension",
+    description="List files in a directory that have a specific file extension.",
+)
 def list_files_by_extension(directory_path: str, extension: str) -> List[str]:
     """Tool to list files with a specific extension in a directory
 
@@ -89,7 +95,9 @@ def list_files_by_extension(directory_path: str, extension: str) -> List[str]:
     return [file for file in list_of_files if file.endswith(extension)]
 
 
-@mcp.tool(name="list_folders", description="List only folders/subdirectories in a directory.")
+@mcp.tool(
+    name="list_folders", description="List only folders/subdirectories in a directory."
+)
 def list_folders(directory_path: str) -> List[str]:
     """Tool to list folders in a directory
 
@@ -123,7 +131,10 @@ def read_file_contents(file_path: str) -> str:
         return contents
 
 
-@mcp.tool(name="write_file_contents", description="Write content to a file, with optional overwrite permission.")
+@mcp.tool(
+    name="write_file_contents",
+    description="Write content to a file, with optional overwrite permission.",
+)
 def write_file_contents(file_path: str, contents: str, overwrite: bool = False) -> str:
     """Tool to write the contents of a file
 
@@ -142,7 +153,10 @@ def write_file_contents(file_path: str, contents: str, overwrite: bool = False) 
         return f"File '{file_path}' has been written successfully."
 
 
-@mcp.tool(name="create_directory", description="Create a new directory and any necessary intermediate parent directories.")
+@mcp.tool(
+    name="create_directory",
+    description="Create a new directory and any necessary intermediate parent directories.",
+)
 def create_directory(directory_path: str) -> str:
     """Tool to create a directory
 
@@ -171,7 +185,10 @@ def move_or_rename(source_path: str, destination_path: str) -> str:
     return f"File or directory '{source_path}' has been moved or renamed to '{destination_path}'."
 
 
-@mcp.tool(name="copy_file_or_folder", description="Copy a file or directory folder recursively to a destination path.")
+@mcp.tool(
+    name="copy_file_or_folder",
+    description="Copy a file or directory folder recursively to a destination path.",
+)
 def copy_file_or_folder(source_path: str, destination_path: str) -> str:
     """Tool to copy a file or directory
 
@@ -190,7 +207,10 @@ def copy_file_or_folder(source_path: str, destination_path: str) -> str:
         return f"File '{source_path}' has been copied to '{destination_path}'."
 
 
-@mcp.tool(name="get_path_metadata", description="Get metadata properties (size, times, owner, etc.) for a file or directory.")
+@mcp.tool(
+    name="get_path_metadata",
+    description="Get metadata properties (size, times, owner, etc.) for a file or directory.",
+)
 def get_path_metadata(path: str) -> dict:
     """Tool to get the metadata of a file or directory
 
@@ -204,7 +224,9 @@ def get_path_metadata(path: str) -> dict:
     return metadata
 
 
-@mcp.tool(name="path_exists", description="Check whether a file or directory path exists.")
+@mcp.tool(
+    name="path_exists", description="Check whether a file or directory path exists."
+)
 def path_exists(path: str) -> bool:
     """Tool to check if a path exists
 
@@ -217,7 +239,10 @@ def path_exists(path: str) -> bool:
     return os.path.exists(path=path)
 
 
-@mcp.tool(name="search_files", description="Search for files in a directory matching a query string in their filename.")
+@mcp.tool(
+    name="search_files",
+    description="Search for files in a directory matching a query string in their filename.",
+)
 def search_files(directory_path: str, query: str) -> List[str]:
     """Tool to search for files in a directory
 
