@@ -44,3 +44,30 @@ def lint_file(file_path: str) -> str:
             return f"File '{file_path}' has been linted. Issues found:\n{output}"
     except Exception as e:
         return f"Error running lint on '{file_path}': {str(e)}"
+
+
+@mcp.tool()
+def format_file(file_path: str) -> str:
+    """Tool to format a python file using the Ruff formatter
+
+    Args:
+        file_path (str): Path to the file to be formatted
+
+    Returns:
+        str: Message indicating the file has been formatted successfully
+    """
+    try:
+        # Run ruff format on the file
+        result = subprocess.run(
+            [sys.executable, "-m", "ruff", "format", file_path],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode == 0:
+            return f"File '{file_path}' has been formatted successfully."
+        else:
+            output = result.stderr or result.stdout
+            return f"Error formatting file '{file_path}':\n{output}"
+    except Exception as e:
+        return f"Error running formatter on '{file_path}': {str(e)}"
