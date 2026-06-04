@@ -7,14 +7,38 @@
 #  🖥️ Author: Srushanth Baride
 #  ✉️ Email: Srushanth.Baride@gmail.com
 #  📅 Date: 04-June-2026
-#  📖 Description:
+#  📖 Description: Security and vulnerability scanner for Python using Bandit
 #
 # **************************************************************************************************
-
-
+import sys
+import subprocess
 from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("bandit")
+
+
+@mcp.tool()
+def health() -> str:
+    """Check the health of the Bandit MCP server.
+
+    Returns:
+        str: Message indicating the health of the Bandit MCP server.
+    """
+    try:
+        # Run bandit --version
+        result = subprocess.run(
+            ["bandit", "--version"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode == 0:
+            version = result.stdout.strip().split("\n")[0]
+            return f"Bandit MCP server is healthy. {version}"
+        else:
+            return f"Bandit MCP server health check failed: {result.stderr or result.stdout}"
+    except Exception as e:
+        return f"Bandit MCP server is unhealthy: {str(e)}"
 
 
 @mcp.tool(description="Scans for security vulnerabilities in a Python file")
