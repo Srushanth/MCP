@@ -120,5 +120,31 @@ def get_raw_metrics(path: str) -> str:
         return f"Error running raw metrics check on '{path}': {str(e)}"
 
 
+@mcp.tool()
+def get_halstead_metrics(path: str) -> str:
+    """Analyze the given Python modules/packages and compute Halstead metrics.
+
+    Args:
+        path (str): The file or directory path to analyze.
+
+    Returns:
+        str: Halstead metrics report.
+    """
+    if not os.path.exists(path):
+        return f"Error: Path '{path}' does not exist."
+
+    try:
+        # Run radon hal on path
+        result = subprocess.run(
+            [sys.executable, "-m", "radon", "hal", path],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        return result.stdout or result.stderr or "No results returned."
+    except Exception as e:
+        return f"Error running Halstead metrics check on '{path}': {str(e)}"
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
