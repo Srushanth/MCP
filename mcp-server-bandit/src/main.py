@@ -19,7 +19,14 @@ mcp = FastMCP("bandit")
 
 @mcp.tool(description="Scans for security vulnerabilities in a Python file")
 def scan_vulnerabilities_in_file(file_path: str) -> dict:
-    """Scans for security vulnerabilities in a Python file."""
+    """Scans for security vulnerabilities in a Python file.
+
+    Args:
+        file_path (str): The path to the Python file to scan.
+
+    Returns:
+        dict: Dictionary containing the stdout and stderr of the Bandit scan.
+    """
     try:
         result = subprocess.run(
             ["bandit", file_path],
