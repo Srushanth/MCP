@@ -99,9 +99,11 @@ Here is a checklist of ideas for future MCP servers to enhance code quality and 
   - [x] `create_type_stubs`: Generates type stub files (`.pyi`) for third-party libraries.
   - [x] `verify_type_completeness`: Verifies the type completeness of a `py.typed` package.
   - [x] `check_types_in_code`: Runs type checking on a raw code snippet.
-- [ ] **`mcp-server-bandit`** (Security & Vulnerability Scanner)
-  - [ ] `scan_vulnerabilities`: Identifies common security issues in Python code.
-  - [ ] `check_dependencies`: Inspects `pyproject.toml` or `uv.lock` for known dependency vulnerabilities.
+- [x] **`mcp-server-bandit`** (Security & Vulnerability Scanner)
+  - [x] `scan_vulnerabilities_in_file`: Identifies security issues in a specific Python file.
+  - [x] `scan_vulnerabilities_in_project`: Recursively analyzes a project directory for vulnerabilities.
+  - [x] `scan_vulnerabilities_in_code`: Evaluates raw Python code snippets for security risks.
+  - [x] `check_dependencies_vulnerabilities`: Inspects project dependencies (pyproject.toml/requirements.txt) for known vulnerabilities using pip-audit.
 - [ ] **`mcp-server-radon`** (Code Complexity Analyzer)
   - [ ] `get_complexity_report`: Rates function and class complexity using Cyclomatic Complexity.
   - [ ] `get_maintainability_index`: Calculates the maintainability score of python files.

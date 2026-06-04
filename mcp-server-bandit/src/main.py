@@ -7,9 +7,16 @@
 #  🖥️ Author: Srushanth Baride
 #  ✉️ Email: Srushanth.Baride@gmail.com
 #  📅 Date: 04-June-2026
-#  📖 Description: Security and vulnerability scanner for Python using Bandit
+#  📖 Description:
+#   - Security and vulnerability scanner for Python using Bandit
+#   - Checks for security vulnerabilities in a Python file
+#   - Checks for security vulnerabilities in a dependency file
+#   - Checks for security vulnerabilities in a project/directory
+#   - Checks for security vulnerabilities in a raw Python code snippet
 #
 # **************************************************************************************************
+
+
 import os
 import sys
 import json
