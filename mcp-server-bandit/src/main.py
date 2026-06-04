@@ -51,7 +51,10 @@ def health() -> str:
         return f"Bandit MCP server is unhealthy: {str(e)}"
 
 
-@mcp.tool(description="Scans for security vulnerabilities in a Python file")
+@mcp.tool(
+    name="scan_vulnerabilities_in_file",
+    description="Scan a single Python file for security vulnerabilities using Bandit.",
+)
 def scan_vulnerabilities_in_file(file_path: str) -> dict:
     """Scans for security vulnerabilities in a Python file.
 
@@ -73,7 +76,10 @@ def scan_vulnerabilities_in_file(file_path: str) -> dict:
         return {"stdout": e.stdout, "stderr": e.stderr}
 
 
-@mcp.tool()
+@mcp.tool(
+    name="check_dependencies_vulnerabilities",
+    description="Check for security vulnerabilities in project dependencies using pip-audit.",
+)
 def check_dependencies_vulnerabilities(dependency_file: str) -> dict:
     """Check for security vulnerabilities in a dependency file.
 
@@ -133,7 +139,10 @@ def check_dependencies_vulnerabilities(dependency_file: str) -> dict:
         return {"error": f"Error running pip-audit: {str(e)}"}
 
 
-@mcp.tool()
+@mcp.tool(
+    name="scan_vulnerabilities_in_project",
+    description="Scan a project directory recursively for security vulnerabilities using Bandit.",
+)
 def scan_vulnerabilities_in_project(
     project_path: str = ".",
     severity_level: str = "all",
@@ -186,7 +195,10 @@ def scan_vulnerabilities_in_project(
         return {"error": f"Error running Bandit on project: {str(e)}"}
 
 
-@mcp.tool()
+@mcp.tool(
+    name="scan_vulnerabilities_in_code",
+    description="Scan a raw Python code snippet for security vulnerabilities using Bandit.",
+)
 def scan_vulnerabilities_in_code(code: str) -> dict:
     """Scan a raw Python code snippet for security vulnerabilities using Bandit.
 
