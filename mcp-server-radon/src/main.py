@@ -10,3 +10,38 @@
 #  📖 Description:
 #
 # **************************************************************************************************
+
+
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("radon")
+
+
+@mcp.tool()
+def get_complexity_report(
+    path: str = Field(..., description="Path to the file")
+) -> str:
+    """
+    Radon analyses Python source code and returns metrics for code-quality
+    assessment. It can be used as a package, module, or command-line tool.
+
+
+    Args:
+        path (str, optional): _description_. Defaults to Field(..., description="Path to the file").
+
+    Returns:
+        str: _description_
+    """
+    return radon.cli.main_for_function(
+        radon.cli.CLI,
+        [
+            "cc",
+            path,
+            "-a",
+            "-s",
+            "--no-doc",
+            "--no-multiline",
+            "--no-blank",
+            "--no-skip-over-tests",
+        ],
+    )
