@@ -42,5 +42,31 @@ def health() -> str:
         return f"Radon MCP server is unhealthy: {str(e)}"
 
 
+@mcp.tool()
+def get_complexity_report(path: str) -> str:
+    """Analyze the given Python modules/packages and compute Cyclomatic Complexity (CC).
+
+    Args:
+        path (str): The file or directory path to analyze.
+
+    Returns:
+        str: Cyclomatic Complexity report.
+    """
+    if not os.path.exists(path):
+        return f"Error: Path '{path}' does not exist."
+
+    try:
+        # Run radon cc on path with show-complexity and average flags
+        result = subprocess.run(
+            [sys.executable, "-m", "radon", "cc", path, "-s", "-a"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        return result.stdout or result.stderr or "No results returned."
+    except Exception as e:
+        return f"Error running Cyclomatic Complexity check on '{path}': {str(e)}"
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
