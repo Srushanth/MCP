@@ -13,10 +13,34 @@
 import os
 import sys
 import json
+import tempfile
 import subprocess
 from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("Pyright")
+
+
+@mcp.tool()
+def health() -> str:
+    """Check the health and version of the Pyright MCP server.
+
+    Returns:
+        str: Message indicating health status and Pyright version.
+    """
+    try:
+        result = subprocess.run(
+            [sys.executable, "-m", "pyright", "--version"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode == 0:
+            version = result.stdout.strip()
+            return f"Pyright MCP server is healthy. Pyright version: {version}"
+        else:
+            return f"Pyright MCP server health check failed: {result.stderr or result.stdout}"
+    except Exception as e:
+        return f"Pyright MCP server is unhealthy: {str(e)}"
 
 
 @mcp.tool()
