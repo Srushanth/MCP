@@ -18,6 +18,16 @@ mcp = FastMCP("black-formatter")
 
 
 @mcp.tool()
+def health() -> str:
+    """Tool to check the health of the Black Formatter MCP server
+
+    Returns:
+        str: Message indicating the health of the Black Formatter MCP server
+    """
+    return "Black Formatter MCP server is healthy."
+
+
+@mcp.tool()
 def format_file(file_path: str) -> str:
     """Tool to format a python file using the black formatter
 
