@@ -68,5 +68,31 @@ def get_complexity_report(path: str) -> str:
         return f"Error running Cyclomatic Complexity check on '{path}': {str(e)}"
 
 
+@mcp.tool()
+def get_maintainability_index(path: str) -> str:
+    """Analyze the given Python modules/packages and compute the Maintainability Index (MI).
+
+    Args:
+        path (str): The file or directory path to analyze.
+
+    Returns:
+        str: Maintainability Index report.
+    """
+    if not os.path.exists(path):
+        return f"Error: Path '{path}' does not exist."
+
+    try:
+        # Run radon mi on path with show flag to show actual MI value
+        result = subprocess.run(
+            [sys.executable, "-m", "radon", "mi", path, "-s"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        return result.stdout or result.stderr or "No results returned."
+    except Exception as e:
+        return f"Error running Maintainability Index check on '{path}': {str(e)}"
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
