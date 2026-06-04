@@ -7,7 +7,7 @@
 #  🖥️ Author: Srushanth Baride
 #  ✉️ Email: Srushanth.Baride@gmail.com
 #  📅 Date: 04-June-2026
-#  📖 Description:
+#  📖 Description: Lint, format, and auto-fix Python code using Ruff
 #
 # **************************************************************************************************
 
@@ -127,7 +127,7 @@ def auto_fix_code(code: str) -> str:
         return f"Error running auto-fix on code: {str(e)}"
 
 
-@mcp.rool()
+@mcp.tool()
 def modernize_syntax(file_path: str) -> str:
     """Tool to modernize syntax of a python file using the Ruff modernize-syntax rule
 
