@@ -21,7 +21,9 @@ from mcp.server.fastmcp import FastMCP
 mcp = FastMCP("radon")
 
 
-@mcp.tool(name="health", description="Check the health and version of the Radon MCP server.")
+@mcp.tool(
+    name="health", description="Check the health and version of the Radon MCP server."
+)
 def health() -> str:
     """Check the health and version of the Radon MCP server.
 
@@ -44,7 +46,10 @@ def health() -> str:
         return f"Radon MCP server is unhealthy: {str(e)}"
 
 
-@mcp.tool(name="get_complexity_report", description="Analyze Python modules/packages and compute Cyclomatic Complexity (CC).")
+@mcp.tool(
+    name="get_complexity_report",
+    description="Analyze Python modules/packages and compute Cyclomatic Complexity (CC).",
+)
 def get_complexity_report(path: str) -> str:
     """Analyze the given Python modules/packages and compute Cyclomatic Complexity (CC).
 
@@ -70,7 +75,10 @@ def get_complexity_report(path: str) -> str:
         return f"Error running Cyclomatic Complexity check on '{path}': {str(e)}"
 
 
-@mcp.tool(name="get_maintainability_index", description="Analyze Python modules/packages and compute the Maintainability Index (MI).")
+@mcp.tool(
+    name="get_maintainability_index",
+    description="Analyze Python modules/packages and compute the Maintainability Index (MI).",
+)
 def get_maintainability_index(path: str) -> str:
     """Analyze the given Python modules/packages and compute the Maintainability Index (MI).
 
@@ -96,7 +104,10 @@ def get_maintainability_index(path: str) -> str:
         return f"Error running Maintainability Index check on '{path}': {str(e)}"
 
 
-@mcp.tool(name="get_raw_metrics", description="Analyze Python modules/packages and compute raw metrics (LOC, LLOC, SLOC, etc.).")
+@mcp.tool(
+    name="get_raw_metrics",
+    description="Analyze Python modules/packages and compute raw metrics (LOC, LLOC, SLOC, etc.).",
+)
 def get_raw_metrics(path: str) -> str:
     """Analyze the given Python modules/packages and compute raw metrics (LOC, LLOC, SLOC, etc.).
 
@@ -122,7 +133,10 @@ def get_raw_metrics(path: str) -> str:
         return f"Error running raw metrics check on '{path}': {str(e)}"
 
 
-@mcp.tool(name="get_halstead_metrics", description="Analyze Python modules/packages and compute Halstead metrics.")
+@mcp.tool(
+    name="get_halstead_metrics",
+    description="Analyze Python modules/packages and compute Halstead metrics.",
+)
 def get_halstead_metrics(path: str) -> str:
     """Analyze the given Python modules/packages and compute Halstead metrics.
 
@@ -148,7 +162,10 @@ def get_halstead_metrics(path: str) -> str:
         return f"Error running Halstead metrics check on '{path}': {str(e)}"
 
 
-@mcp.tool(name="get_complexity_of_code", description="Analyze a raw Python code snippet and compute Cyclomatic Complexity (CC).")
+@mcp.tool(
+    name="get_complexity_of_code",
+    description="Analyze a raw Python code snippet and compute Cyclomatic Complexity (CC).",
+)
 def get_complexity_of_code(code: str) -> str:
     """Analyze a raw Python code snippet and compute Cyclomatic Complexity (CC).
 
@@ -181,7 +198,10 @@ def get_complexity_of_code(code: str) -> str:
         return f"Error running Cyclomatic Complexity check on code snippet: {str(e)}"
 
 
-@mcp.tool(name="get_maintainability_of_code", description="Analyze a raw Python code snippet and compute the Maintainability Index (MI).")
+@mcp.tool(
+    name="get_maintainability_of_code",
+    description="Analyze a raw Python code snippet and compute the Maintainability Index (MI).",
+)
 def get_maintainability_of_code(code: str) -> str:
     """Analyze a raw Python code snippet and compute the Maintainability Index (MI).
 
