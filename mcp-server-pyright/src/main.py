@@ -1,6 +1,12 @@
-def main():
-    print("Hello from mcp-server-pyright!")
+"""MCP Server for Pyright"""
 
-
-if __name__ == "__main__":
-    main()
+# -*- coding: utf-8 -*-
+# **************************************************************************************************
+#
+#  🚀 Created by Srushanth Baride
+#  🖥️ Author: Srushanth Baride
+#  ✉️ Email: Srushanth.Baride@gmail.com
+#  📅 Date: 04-June-2026
+#  📖 Description:
+#
+# **************************************************************************************************
