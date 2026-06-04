@@ -37,6 +37,12 @@ The repository is structured to facilitate easy understanding and usage of MCP w
     │   ├── 📁src
     │   │   └── main.py (Directory Management Server)
     │   └── uv.lock
+    ├── 📁mcp-server-pyright
+    │   ├── pyproject.toml
+    │   ├── README.md
+    │   ├── 📁src
+    │   │   └── main.py (Pyright Server)
+    │   └── uv.lock
     └── 📁mcp-server-ruff
         ├── pyproject.toml
         ├── README.md
@@ -69,6 +75,15 @@ A Python-based FastMCP server providing high-performance code quality tools powe
 * `auto_fix_code`: Automatically fixes safe linting/style issues in python code passed directly.
 * `modernize_syntax`: Upgrades older Python syntax to modern standards.
 
+### 6. Pyright Server (`mcp-server-pyright`)
+A Python-based FastMCP server providing static type checking and type analysis powered by Pyright. Supports `health` checks.
+* `health`: Check server health status and Pyright version.
+* `check_types_in_file`: Verifies type annotations and safety on a file.
+* `check_types_in_project`: Analyzes the whole project for type errors.
+* `create_type_stubs`: Generates type stub files (`.pyi`) for third-party libraries.
+* `verify_type_completeness`: Verifies the type completeness of a `py.typed` package.
+* `check_types_in_code`: Analyzes type errors in a raw Python code snippet.
+
 ## Future Code Quality Servers (Roadmap)
 
 Here is a checklist of ideas for future MCP servers to enhance code quality and developer workflows:
@@ -78,9 +93,12 @@ Here is a checklist of ideas for future MCP servers to enhance code quality and 
   - [x] `format_file`: Formats code to match PEP 8 guidelines (drop-in Black replacement).
   - [x] `auto_fix_file`: Automatically fixes safe linting and style issues.
   - [x] `modernize_syntax`: Upgrades older Python code patterns to modern syntax (e.g. converting old string formatting to f-strings).
-- [ ] **`mcp-server-pyright` / `mcp-server-mypy`** (Type Checker)
-  - [ ] `check_types_in_file`: Verifies type annotations and safety on a file.
-  - [ ] `check_types_in_project`: Analyzes the whole project for type errors.
+- [x] **`mcp-server-pyright`** (Type Checker)
+  - [x] `check_types_in_file`: Verifies type annotations and safety on a file.
+  - [x] `check_types_in_project`: Analyzes the whole project for type errors.
+  - [x] `create_type_stubs`: Generates type stub files (`.pyi`) for third-party libraries.
+  - [x] `verify_type_completeness`: Verifies the type completeness of a `py.typed` package.
+  - [x] `check_types_in_code`: Runs type checking on a raw code snippet.
 - [ ] **`mcp-server-bandit`** (Security & Vulnerability Scanner)
   - [ ] `scan_vulnerabilities`: Identifies common security issues in Python code.
   - [ ] `check_dependencies`: Inspects `pyproject.toml` or `uv.lock` for known dependency vulnerabilities.
