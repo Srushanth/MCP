@@ -19,6 +19,29 @@ mcp = FastMCP("pytest")
 
 
 @mcp.tool()
+def health() -> str:
+    """Check the health and version of the pytest MCP server.
+
+    Returns:
+        str: Health status and version of pytest.
+    """
+    try:
+        result = subprocess.run(
+            [sys.executable, "-m", "pytest", "--version"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode == 0:
+            version = result.stdout.strip() or result.stderr.strip()
+            return f"pytest MCP server is healthy. {version}"
+        else:
+            return f"pytest MCP server health check failed: {result.stderr or result.stdout}"
+    except Exception as e:
+        return f"pytest MCP server is unhealthy: {str(e)}"
+
+
+@mcp.tool()
 def run_tests(path: str) -> str:
     """Run pytest on the given path.
 
