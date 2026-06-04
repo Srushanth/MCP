@@ -52,7 +52,9 @@ def list_rules() -> str:
         return f"Error listing rules: {str(e)}"
 
 
-@mcp.tool(name="lint_file", description="Analyze a Python file for lint errors using Ruff.")
+@mcp.tool(
+    name="lint_file", description="Analyze a Python file for lint errors using Ruff."
+)
 def lint_file(file_path: str) -> str:
     """Tool to lint a file using Ruff
 
@@ -80,7 +82,10 @@ def lint_file(file_path: str) -> str:
         return f"Error running lint on '{file_path}': {str(e)}"
 
 
-@mcp.tool(name="format_file", description="Reformat a Python file in-place using the Ruff formatter.")
+@mcp.tool(
+    name="format_file",
+    description="Reformat a Python file in-place using the Ruff formatter.",
+)
 def format_file(file_path: str) -> str:
     """Tool to format a python file using the Ruff formatter
 
@@ -107,7 +112,10 @@ def format_file(file_path: str) -> str:
         return f"Error running formatter on '{file_path}': {str(e)}"
 
 
-@mcp.tool(name="auto_fix_file", description="Automatically resolve safe linting and style issues in a file using Ruff.")
+@mcp.tool(
+    name="auto_fix_file",
+    description="Automatically resolve safe linting and style issues in a file using Ruff.",
+)
 def auto_fix_file(file_path: str) -> str:
     """Tool to auto fix a python file using the Ruff auto-fixer
 
@@ -134,7 +142,10 @@ def auto_fix_file(file_path: str) -> str:
         return f"Error running auto-fix on '{file_path}': {str(e)}"
 
 
-@mcp.tool(name="auto_fix_code", description="Automatically resolve safe linting and style issues in a raw code snippet using Ruff.")
+@mcp.tool(
+    name="auto_fix_code",
+    description="Automatically resolve safe linting and style issues in a raw code snippet using Ruff.",
+)
 def auto_fix_code(code: str) -> str:
     """Tool to auto fix python code using the Ruff auto-fixer
 
@@ -161,7 +172,10 @@ def auto_fix_code(code: str) -> str:
         return f"Error running auto-fix on code: {str(e)}"
 
 
-@mcp.tool(name="modernize_syntax", description="Upgrade Python syntax in a file using Ruff's modernization rules.")
+@mcp.tool(
+    name="modernize_syntax",
+    description="Upgrade Python syntax in a file using Ruff's modernization rules.",
+)
 def modernize_syntax(file_path: str) -> str:
     """Tool to modernize syntax of a python file using the Ruff modernize-syntax rule
 
