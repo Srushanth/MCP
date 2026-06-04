@@ -146,5 +146,38 @@ def get_halstead_metrics(path: str) -> str:
         return f"Error running Halstead metrics check on '{path}': {str(e)}"
 
 
+@mcp.tool()
+def get_complexity_of_code(code: str) -> str:
+    """Analyze a raw Python code snippet and compute Cyclomatic Complexity (CC).
+
+    Args:
+        code (str): The Python code snippet to analyze.
+
+    Returns:
+        str: Cyclomatic Complexity report.
+    """
+    try:
+        with tempfile.NamedTemporaryFile(
+            suffix=".py", mode="w", delete=False, encoding="utf-8"
+        ) as temp_file:
+            temp_file.write(code)
+            temp_file_name = temp_file.name
+
+        try:
+            result = subprocess.run(
+                [sys.executable, "-m", "radon", "cc", temp_file_name, "-s", "-a"],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            output = result.stdout or result.stderr or ""
+            return output.replace(temp_file_name, "snippet.py")
+        finally:
+            if os.path.exists(temp_file_name):
+                os.remove(temp_file_name)
+    except Exception as e:
+        return f"Error running Cyclomatic Complexity check on code snippet: {str(e)}"
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
