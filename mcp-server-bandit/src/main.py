@@ -10,7 +10,10 @@
 #  📖 Description: Security and vulnerability scanner for Python using Bandit
 #
 # **************************************************************************************************
+import os
 import sys
+import json
+import tempfile
 import subprocess
 from mcp.server.fastmcp import FastMCP
 
@@ -68,21 +71,59 @@ def check_dependencies_vulnerabilities(dependency_file: str) -> dict:
     """Check for security vulnerabilities in a dependency file.
 
     Args:
-        dependency_file (str): The path to the dependency file to scan.
+        dependency_file (str): The path to the dependency file (e.g. requirements.txt or pyproject.toml) or directory to scan.
 
     Returns:
-        dict: Dictionary containing the stdout and stderr of the Bandit scan.
+        dict: Dictionary containing the audit results or error details.
     """
+    if not os.path.exists(dependency_file):
+        return {"error": f"Path '{dependency_file}' does not exist."}
+
+    cmd = [sys.executable, "-m", "pip_audit", "-f", "json"]
+
+    if os.path.isfile(dependency_file) and dependency_file.endswith(".txt"):
+        cmd.extend(["-r", dependency_file])
+    else:
+        # If it's a directory or a file like pyproject.toml, pass the directory path
+        if os.path.isfile(dependency_file):
+            cmd.append(os.path.dirname(os.path.abspath(dependency_file)))
+        else:
+            cmd.append(dependency_file)
+
     try:
         result = subprocess.run(
-            ["bandit", "-r", dependency_file],
+            cmd,
             capture_output=True,
             text=True,
-            check=True,
+            check=False,
         )
-        return {"stdout": result.stdout, "stderr": result.stderr}
-    except subprocess.CalledProcessError as e:
-        return {"stdout": e.stdout, "stderr": e.stderr}
+
+        # Parse stdout as json if possible
+        try:
+            if result.stdout.strip():
+                stdout = result.stdout
+                start = stdout.find("{")
+                end = stdout.rfind("}")
+                if start != -1 and end != -1:
+                    json_str = stdout[start : end + 1]
+                    audit_data = json.loads(json_str)
+                    return {"vulnerabilities": audit_data, "stderr": result.stderr}
+
+            return {
+                "output": result.stdout,
+                "stderr": result.stderr,
+                "exit_code": result.returncode,
+            }
+        except Exception as json_err:
+            return {
+                "error": f"Failed to parse pip-audit JSON output: {str(json_err)}",
+                "stdout": result.stdout,
+                "stderr": result.stderr,
+                "exit_code": result.returncode,
+            }
+
+    except Exception as e:
+        return {"error": f"Error running pip-audit: {str(e)}"}
 
 
 if __name__ == "__main__":
