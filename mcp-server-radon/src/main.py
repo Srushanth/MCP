@@ -74,3 +74,7 @@ def get_maintainability_index(
             "--no-skip-over-tests",
         ],
     )
+
+
+if __name__ == "__main__":
+    mcp.run(transport="stdio")
