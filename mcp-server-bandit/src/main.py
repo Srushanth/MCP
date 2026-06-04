@@ -30,3 +30,7 @@ def scan_vulnerabilities_in_file(file_path: str) -> dict:
         return {"stdout": result.stdout, "stderr": result.stderr}
     except subprocess.CalledProcessError as e:
         return {"stdout": e.stdout, "stderr": e.stderr}
+
+
+if __name__ == "__main__":
+    mcp.run(transport="stdio")
