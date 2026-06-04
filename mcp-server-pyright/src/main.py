@@ -181,5 +181,38 @@ def create_type_stubs(package_name: str, project_path: str = ".") -> str:
         return f"Error creating type stubs: {str(e)}"
 
 
+@mcp.tool()
+def verify_type_completeness(package_name: str, project_path: str = ".") -> str:
+    """Verify the type completeness of a py.typed package.
+
+    Args:
+        package_name (str): The name of the package to verify.
+        project_path (str): The path to the project directory. Defaults to ".".
+
+    Returns:
+        str: The type completeness report.
+    """
+    if not os.path.isdir(project_path):
+        return f"Error: '{project_path}' is not a valid directory."
+
+    try:
+        result = subprocess.run(
+            [sys.executable, "-m", "pyright", "--verifytypes", package_name],
+            capture_output=True,
+            text=True,
+            check=False,
+            cwd=project_path,
+        )
+        output = result.stdout or result.stderr or ""
+        if result.returncode == 0:
+            return (
+                f"Type completeness verification passed for '{package_name}':\n{output}"
+            )
+        else:
+            return f"Type completeness verification failed/incomplete for '{package_name}':\n{output}"
+    except Exception as e:
+        return f"Error verifying type completeness: {str(e)}"
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
