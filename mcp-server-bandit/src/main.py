@@ -179,5 +179,43 @@ def scan_vulnerabilities_in_project(
         return {"error": f"Error running Bandit on project: {str(e)}"}
 
 
+@mcp.tool()
+def scan_vulnerabilities_in_code(code: str) -> dict:
+    """Scan a raw Python code snippet for security vulnerabilities using Bandit.
+
+    Args:
+        code (str): The Python code snippet to scan.
+
+    Returns:
+        dict: Scan results containing stdout and stderr.
+    """
+    try:
+        with tempfile.NamedTemporaryFile(
+            suffix=".py", mode="w", delete=False, encoding="utf-8"
+        ) as temp_file:
+            temp_file.write(code)
+            temp_file_name = temp_file.name
+
+        try:
+            result = subprocess.run(
+                ["bandit", temp_file_name],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            # Remove reference to the temp file path in the output for cleaner display
+            stdout = result.stdout or ""
+            stderr = result.stderr or ""
+            stdout = stdout.replace(temp_file_name, "snippet.py")
+            stderr = stderr.replace(temp_file_name, "snippet.py")
+
+            return {"stdout": stdout, "stderr": stderr, "exit_code": result.returncode}
+        finally:
+            if os.path.exists(temp_file_name):
+                os.remove(temp_file_name)
+    except Exception as e:
+        return {"error": f"Error running Bandit on code snippet: {str(e)}"}
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
