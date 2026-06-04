@@ -22,7 +22,9 @@ from mcp.server.fastmcp import FastMCP
 mcp = FastMCP("Pyright")
 
 
-@mcp.tool(name="health", description="Check the health and version of the Pyright MCP server.")
+@mcp.tool(
+    name="health", description="Check the health and version of the Pyright MCP server."
+)
 def health() -> str:
     """Check the health and version of the Pyright MCP server.
 
@@ -45,7 +47,10 @@ def health() -> str:
         return f"Pyright MCP server is unhealthy: {str(e)}"
 
 
-@mcp.tool(name="check_types_in_file", description="Check types in a specific Python file using Pyright.")
+@mcp.tool(
+    name="check_types_in_file",
+    description="Check types in a specific Python file using Pyright.",
+)
 def check_types_in_file(file_path: str) -> str:
     """Check types in a file using pyright.
     Args:
@@ -70,7 +75,10 @@ def check_types_in_file(file_path: str) -> str:
         return f"Error running pyright on '{file_path}': {str(e)}"
 
 
-@mcp.tool(name="check_types_in_project", description="Check types project-wide or in a specified directory using Pyright.")
+@mcp.tool(
+    name="check_types_in_project",
+    description="Check types project-wide or in a specified directory using Pyright.",
+)
 def check_types_in_project(project_path: str = ".") -> str:
     """Check types in the specified project directory using pyright.
 
@@ -149,7 +157,10 @@ def check_types_in_project(project_path: str = ".") -> str:
                 pass
 
 
-@mcp.tool(name="create_type_stubs", description="Generate type stub files (.pyi) for a third-party package using Pyright.")
+@mcp.tool(
+    name="create_type_stubs",
+    description="Generate type stub files (.pyi) for a third-party package using Pyright.",
+)
 def create_type_stubs(package_name: str, project_path: str = ".") -> str:
     """Generate type stub files (.pyi) for a third-party package using pyright.
 
@@ -183,7 +194,10 @@ def create_type_stubs(package_name: str, project_path: str = ".") -> str:
         return f"Error creating type stubs: {str(e)}"
 
 
-@mcp.tool(name="verify_type_completeness", description="Verify the type completeness of a py.typed package.")
+@mcp.tool(
+    name="verify_type_completeness",
+    description="Verify the type completeness of a py.typed package.",
+)
 def verify_type_completeness(package_name: str, project_path: str = ".") -> str:
     """Verify the type completeness of a py.typed package.
 
@@ -216,7 +230,10 @@ def verify_type_completeness(package_name: str, project_path: str = ".") -> str:
         return f"Error verifying type completeness: {str(e)}"
 
 
-@mcp.tool(name="check_types_in_code", description="Check types in a raw Python code snippet using Pyright.")
+@mcp.tool(
+    name="check_types_in_code",
+    description="Check types in a raw Python code snippet using Pyright.",
+)
 def check_types_in_code(code: str) -> str:
     """Check types in a raw Python code snippet using pyright.
 
