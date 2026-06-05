@@ -54,11 +54,17 @@ The repository is structured to facilitate easy understanding and usage of MCP w
     │   ├── 📁src
     │   │   └── main.py (Radon Server)
     │   └── uv.lock
-    └── 📁mcp-server-ruff
+    ├── 📁mcp-server-ruff
+    │   ├── pyproject.toml
+    │   ├── README.md
+    │   ├── 📁src
+    │   │   └── main.py (Ruff Server)
+    │   └── uv.lock
+    └── 📁mcp-server-secret-scan
         ├── pyproject.toml
         ├── README.md
         ├── 📁src
-        │   └── main.py (Ruff Server)
+        │   └── main.py (Secret Scan Server)
         └── uv.lock
 ```
 
@@ -144,3 +150,12 @@ A Python-based FastMCP server providing code complexity and quality metrics powe
   * `get_halstead_metrics`: Computes Halstead metrics (operands, operators, volume, difficulty, effort).
   * `get_complexity_of_code`: Calculates Cyclomatic Complexity for a raw code snippet.
   * `get_maintainability_of_code`: Calculates the maintainability score of a raw code snippet.
+
+### 9. Secrets & Credentials Scanner (`mcp-server-secret-scan`)
+A Python-based FastMCP server providing security scanning for files, directories, and raw code snippets to detect exposed credentials, API keys, passwords, and private keys. Powered by Yelp's `detect-secrets`.
+- **Entry point**: [main.py](file:///c:/GitHub/MCP/mcp-server-secret-scan/src/main.py)
+- **Tools**:
+  * `health`: Check health and version of the Secrets Scanner server.
+  * `scan_file`: Scan a single file for secrets.
+  * `scan_code`: Scan a raw code snippet or string for secrets.
+  * `scan_directory`: Recursively scan a directory, ignoring dependency and build folders.
