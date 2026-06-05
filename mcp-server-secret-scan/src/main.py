@@ -66,5 +66,64 @@ def read_line_from_file(file_path: str, line_number: int) -> str:
     return ""
 
 
+@mcp.tool(
+    name="scan_file",
+    description="Scan a single file for secrets, credentials, and API keys.",
+)
+def scan_file(file_path: str) -> Dict[str, Any]:
+    """Scan a single file for credentials.
+
+    Args:
+        file_path (str): Absolute path to the file to scan.
+
+    Returns:
+        dict: A dictionary containing the list of found secrets or an error message.
+    """
+    if not os.path.exists(file_path):
+        return {"error": f"File not found: {file_path}", "secrets": []}
+
+    if not os.path.isfile(file_path):
+        return {"error": f"Path is not a file: {file_path}", "secrets": []}
+
+    if is_binary_file(file_path):
+        return {
+            "error": f"File is binary and cannot be scanned: {file_path}",
+            "secrets": [],
+        }
+
+    secrets = SecretsCollection()
+    try:
+        with default_settings():
+            secrets.scan_file(file_path)
+    except Exception as e:
+        return {"error": f"Error scanning file: {str(e)}", "secrets": []}
+
+    findings = []
+    json_results = secrets.json()
+
+    # The JSON output format from detect-secrets maps filenames to lists of potential secrets.
+    for filename, secret_list in json_results.items():
+        for secret in secret_list:
+            line_no = secret.get("line_number", 0)
+            line_content = (
+                read_line_from_file(file_path, line_no) if line_no > 0 else ""
+            )
+            findings.append(
+                {
+                    "type": secret.get("type", "Unknown Secret"),
+                    "line_number": line_no,
+                    "hashed_secret": secret.get("hashed_secret"),
+                    "line_content": line_content,
+                    "is_verified": secret.get("is_verified", False),
+                }
+            )
+
+    return {
+        "file_path": file_path,
+        "secrets_found_count": len(findings),
+        "secrets": findings,
+    }
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
