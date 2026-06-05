@@ -44,5 +44,15 @@ def get_detect_secrets_version() -> str:
         return "unknown"
 
 
+def is_binary_file(file_path: str) -> bool:
+    """Check if a file is binary by attempting to read a small UTF-8 chunk."""
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            f.read(1024)
+        return False
+    except (UnicodeDecodeError, PermissionError):
+        return True
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
