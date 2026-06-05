@@ -54,5 +54,17 @@ def is_binary_file(file_path: str) -> bool:
         return True
 
 
+def read_line_from_file(file_path: str, line_number: int) -> str:
+    """Helper to read a specific line from a file (1-indexed)."""
+    try:
+        with open(file_path, "r", encoding="utf-8", errors="replace") as f:
+            for idx, line in enumerate(f, start=1):
+                if idx == line_number:
+                    return line.strip()
+    except Exception as e:
+        return f"<Error reading line: {str(e)}>"
+    return ""
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
