@@ -36,5 +36,13 @@ def health() -> str:
     return f"Secrets Scanner MCP server is healthy. detect-secrets version: {version}"
 
 
+def get_detect_secrets_version() -> str:
+    """Helper to get detect-secrets package version."""
+    try:
+        return importlib.metadata.version("detect-secrets")
+    except importlib.metadata.PackageNotFoundError:
+        return "unknown"
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
