@@ -22,5 +22,19 @@ from mcp.server.fastmcp import FastMCP
 mcp = FastMCP("secret-scan")
 
 
+@mcp.tool(
+    name="health",
+    description="Check the health and version of the Secrets Scanner MCP server.",
+)
+def health() -> str:
+    """Tool to check the health and version of the Secrets Scanner MCP server.
+
+    Returns:
+        str: Message indicating the health and version of the server.
+    """
+    version = get_detect_secrets_version()
+    return f"Secrets Scanner MCP server is healthy. detect-secrets version: {version}"
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
