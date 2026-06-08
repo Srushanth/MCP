@@ -1,7 +1,7 @@
 [project]
 name = "mcp-server-secret-scan"
 version = "0.1.0"
-description = "Add your description here"
+description = "MCP server providing security scans for API keys, credentials, and passwords"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
