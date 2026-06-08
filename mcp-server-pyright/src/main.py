@@ -19,7 +19,7 @@ import tempfile
 import subprocess
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("Pyright", host="localhost", port=3004)
+mcp = FastMCP("Pyright", host="localhost", port=3004, streamable_http_path="/sse")
 
 
 @mcp.tool(
@@ -273,4 +273,4 @@ def check_types_in_code(code: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="sse")
+    mcp.run(transport="streamable-http")
