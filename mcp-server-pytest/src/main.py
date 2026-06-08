@@ -17,7 +17,7 @@ import sys
 import subprocess
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("pytest", host="localhost", port=3005)
+mcp = FastMCP("pytest", host="localhost", port=3005, streamable_http_path="/sse")
 
 
 @mcp.tool(
@@ -101,4 +101,4 @@ def run_tests_with_coverage(path: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="sse")
+    mcp.run(transport="streamable-http")
