@@ -14,7 +14,7 @@
 import black
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("black-formatter")
+mcp = FastMCP("black-formatter", host="localhost", port=3002)
 
 
 @mcp.tool(
@@ -51,4 +51,4 @@ def format_file(file_path: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    mcp.run(transport="sse")
