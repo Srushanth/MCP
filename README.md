@@ -159,3 +159,64 @@ A Python-based FastMCP server providing security scanning for files, directories
   * `scan_file`: Scan a single file for secrets.
   * `scan_code`: Scan a raw code snippet or string for secrets.
   * `scan_directory`: Recursively scan a directory, ignoring dependency and build folders.
+
+---
+
+## Running All Servers Concurrently (SSE Transport)
+
+A default [Makefile](file:///c:/GitHub/MCP/Makefile) and an orchestration script [run_servers.py](file:///c:/GitHub/MCP/run_servers.py) are provided in the root of the repository to concurrently run all 8 Python MCP servers over HTTP using Server-Sent Events (SSE).
+
+### 1. Start the Servers
+To run all servers concurrently on their designated ports, run:
+
+```bash
+make
+# or: make run-all
+```
+
+This starts the servers on `localhost` with clean, labeled logs:
+* `bandit` -> port `3001`
+* `black-formatter` -> port `3002`
+* `directory-management` -> port `3003`
+* `pyright` -> port `3004`
+* `pytest` -> port `3005`
+* `radon` -> port `3006`
+* `ruff` -> port `3007`
+* `secret-scan` -> port `3008`
+
+Press `Ctrl+C` to gracefully terminate all servers.
+
+### 2. Client Configuration
+To connect your IDE or client to these running servers, use the `"serverURL"` configuration key in your client settings file (e.g. `mcp_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "directory-management": {
+      "serverURL": "http://localhost:3003/sse"
+    },
+    "black-formatter": {
+      "serverURL": "http://localhost:3002/sse"
+    },
+    "pyright": {
+      "serverURL": "http://localhost:3004/sse"
+    },
+    "bandit": {
+      "serverURL": "http://localhost:3001/sse"
+    },
+    "pytest": {
+      "serverURL": "http://localhost:3005/sse"
+    },
+    "ruff": {
+      "serverURL": "http://localhost:3007/sse"
+    },
+    "radon": {
+      "serverURL": "http://localhost:3006/sse"
+    },
+    "secret-scan": {
+      "serverURL": "http://localhost:3008/sse"
+    }
+  }
+}
+```
+
