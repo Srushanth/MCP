@@ -1,7 +1,7 @@
 [project]
 name = "adk"
 version = "0.1.0"
-description = "Add your description here"
+description = "Google Agent Development Kit (ADK) integration with custom MCP servers"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
