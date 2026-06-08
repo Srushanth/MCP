@@ -1,7 +1,7 @@
 [project]
 name = "mcp-server-directry-management"
 version = "0.1.0"
-description = "Add your description here"
+description = "MCP server offering comprehensive directory and filesystem management tools"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
