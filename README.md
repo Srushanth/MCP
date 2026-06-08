@@ -166,7 +166,14 @@ A Python-based FastMCP server providing security scanning for files, directories
 
 A default [Makefile](file:///c:/GitHub/MCP/Makefile) and an orchestration script [run_servers.py](file:///c:/GitHub/MCP/run_servers.py) are provided in the root of the repository to concurrently run all 8 Python MCP servers over HTTP using Server-Sent Events (SSE).
 
-### 1. Start the Servers
+### 1. Initialization and Setup
+Before running the servers, you can initialize the virtual environments (`.venv`) and sync dependencies for all 8 servers by running:
+
+```bash
+make setup
+```
+
+### 2. Start the Servers
 To run all servers concurrently on their designated ports, run:
 
 ```bash
