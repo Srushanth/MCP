@@ -61,10 +61,10 @@ Add the following to your client's settings (e.g. `mcp_config.json`):
 Make sure the entry point in [src/main.py](file:///c:/GitHub/MCP/mcp-server-pyright/src/main.py) is configured for SSE:
 
 ```python
-mcp = FastMCP("Pyright", host="localhost", port=3004)
+mcp = FastMCP("Pyright", host="localhost", port=3004, streamable_http_path="/sse")
 
 if __name__ == "__main__":
-    mcp.run(transport="sse")
+    mcp.run(transport="streamable-http")
 ```
 
 ---
