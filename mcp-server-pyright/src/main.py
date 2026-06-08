@@ -19,7 +19,7 @@ import tempfile
 import subprocess
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("Pyright")
+mcp = FastMCP("Pyright", host="localhost", port=3004)
 
 
 @mcp.tool(
@@ -273,4 +273,4 @@ def check_types_in_code(code: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    mcp.run(transport="sse")
