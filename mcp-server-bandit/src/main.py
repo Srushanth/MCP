@@ -24,7 +24,7 @@ import tempfile
 import subprocess
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("bandit", host="localhost", port=3001)
+mcp = FastMCP("bandit", host="localhost", port=3001, streamable_http_path="/sse")
 
 
 @mcp.tool(name="health", description="Check the health of the Bandit MCP server.")
@@ -237,4 +237,4 @@ def scan_vulnerabilities_in_code(code: str) -> dict:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="sse")
+    mcp.run(transport="streamable-http")
