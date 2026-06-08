@@ -19,7 +19,7 @@ from detect_secrets import SecretsCollection
 from detect_secrets.settings import default_settings
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("secret-scan", host="localhost", port=3008)
+mcp = FastMCP("secret-scan", host="localhost", port=3008, streamable_http_path="/sse")
 
 
 @mcp.tool(
@@ -290,4 +290,4 @@ def scan_directory(
 
 
 if __name__ == "__main__":
-    mcp.run(transport="sse")
+    mcp.run(transport="streamable-http")
