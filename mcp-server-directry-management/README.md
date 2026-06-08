@@ -65,10 +65,10 @@ Add the following to your client's settings (e.g. `mcp_config.json`):
 Make sure the entry point in [src/main.py](file:///c:/GitHub/MCP/mcp-server-directry-management/src/main.py) is configured for SSE:
 
 ```python
-mcp = FastMCP("directory-management", host="localhost", port=3003)
+mcp = FastMCP("directory-management", host="localhost", port=3003, streamable_http_path="/sse")
 
 if __name__ == "__main__":
-    mcp.run(transport="sse")
+    mcp.run(transport="streamable-http")
 ```
 
 ## Available Tools
