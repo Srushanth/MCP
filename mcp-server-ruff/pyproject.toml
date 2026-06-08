@@ -1,7 +1,7 @@
 [project]
 name = "mcp-server-ruff"
 version = "0.1.0"
-description = "Add your description here"
+description = "MCP server providing high-performance linting and formatting powered by Ruff"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = ["httpx>=0.28.1", "mcp[cli]>=1.27.2", "ruff>=0.15.15"]
