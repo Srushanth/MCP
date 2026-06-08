@@ -57,10 +57,10 @@ Add the following to your client's settings (e.g. `mcp_config.json`):
 Make sure the entry point in [src/main.py](file:///c:/GitHub/MCP/mcp-server-pytest/src/main.py) is configured for SSE:
 
 ```python
-mcp = FastMCP("pytest", host="localhost", port=3005)
+mcp = FastMCP("pytest", host="localhost", port=3005, streamable_http_path="/sse")
 
 if __name__ == "__main__":
-    mcp.run(transport="sse")
+    mcp.run(transport="streamable-http")
 ```
 
 ---
