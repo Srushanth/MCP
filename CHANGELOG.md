@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [2026-06-08] - Streamable HTTP Transition for Client Compatibility
+
+To ensure compatibility with clients that utilize the modern Streamable HTTP protocol (sending `POST`, `GET`, and `DELETE` requests directly to the configured SSE endpoint), all 8 MCP servers have been transitioned to the `streamable-http` transport with the endpoint path mapped to `/sse`.
+
 ## [2026-06-08] - SSE Transport Transition
 
 This update migrates the 8 custom Python-based Model Context Protocol (MCP) servers from the local `stdio` stream transport to standalone **SSE (Server-Sent Events)** HTTP services. This permits concurrent client connections, asynchronous debugging, and decoupling of server lifecycles from single IDE process frames.
