@@ -55,10 +55,10 @@ Add the following to your client's settings (e.g. `mcp_config.json`):
 Make sure the entry point in [src/main.py](file:///c:/GitHub/MCP/mcp-server-black-formatter/src/main.py) is configured for SSE:
 
 ```python
-mcp = FastMCP("black-formatter", host="localhost", port=3002)
+mcp = FastMCP("black-formatter", host="localhost", port=3002, streamable_http_path="/sse")
 
 if __name__ == "__main__":
-    mcp.run(transport="sse")
+    mcp.run(transport="streamable-http")
 ```
 
 ---
