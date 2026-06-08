@@ -1,7 +1,7 @@
 [project]
 name = "mcp-server-pytest"
 version = "0.1.0"
-description = "Add your description here"
+description = "MCP server offering automated test runner and coverage analysis using pytest"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
