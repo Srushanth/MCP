@@ -59,10 +59,10 @@ Add the following to your client's settings (e.g. `mcp_config.json`):
 Make sure the entry point in [src/main.py](file:///c:/GitHub/MCP/mcp-server-bandit/src/main.py) is configured for SSE:
 
 ```python
-mcp = FastMCP("bandit", host="localhost", port=3001)
+mcp = FastMCP("bandit", host="localhost", port=3001, streamable_http_path="/sse")
 
 if __name__ == "__main__":
-    mcp.run(transport="sse")
+    mcp.run(transport="streamable-http")
 ```
 
 ---
