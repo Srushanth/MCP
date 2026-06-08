@@ -35,25 +35,40 @@ Recursively crawls a workspace or directory to identify credentials.
 
 ---
 
-## Configuration Setup
+## Configuration & Usage
 
-### MCP Settings Config (`mcp_config.json`)
-To integrate this server into your local environment, add the following configuration block to your MCP config:
+This server is configured to run over **SSE (Server-Sent Events) Transport**.
+
+### Running the Server
+
+Start the server using `uv`:
+
+```bash
+uv run --project c:/GitHub/MCP/mcp-server-secret-scan c:/GitHub/MCP/mcp-server-secret-scan/src/main.py
+```
+This starts the SSE server at `http://localhost:3008`.
+
+### Configuration
+
+Add the following to your client's settings (e.g. `mcp_config.json`):
 
 ```json
 {
   "mcpServers": {
     "secret-scan": {
-      "command": "uv",
-      "args": [
-        "run",
-        "--project",
-        "c:/GitHub/MCP/mcp-server-secret-scan",
-        "c:/GitHub/MCP/mcp-server-secret-scan/src/main.py"
-      ]
+      "serverURL": "http://localhost:3008/sse"
     }
   }
 }
+```
+
+Make sure the entry point in [src/main.py](file:///c:/GitHub/MCP/mcp-server-secret-scan/src/main.py) is configured for SSE:
+
+```python
+mcp = FastMCP("secret-scan", host="localhost", port=3008)
+
+if __name__ == "__main__":
+    mcp.run(transport="sse")
 ```
 
 ---
