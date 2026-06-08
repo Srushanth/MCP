@@ -15,7 +15,7 @@ import sys
 import subprocess
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("ruff", host="localhost", port=3007)
+mcp = FastMCP("ruff", host="localhost", port=3007, streamable_http_path="/sse")
 
 
 @mcp.tool(name="health", description="Check the health of the Ruff MCP server.")
@@ -212,4 +212,4 @@ def modernize_syntax(file_path: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="sse")
+    mcp.run(transport="streamable-http")
