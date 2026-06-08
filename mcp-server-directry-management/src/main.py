@@ -28,7 +28,7 @@ import shutil
 from typing import List
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("directory-management")
+mcp = FastMCP("directory-management", host="localhost", port=3003)
 
 
 @mcp.tool(
@@ -258,4 +258,4 @@ def search_files(directory_path: str, query: str) -> List[str]:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    mcp.run(transport="sse")
