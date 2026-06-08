@@ -31,35 +31,38 @@ uv sync
 
 ## Configuration & Usage
 
-### STDIO Transport (Default & Recommended)
+This server is configured to run over **SSE (Server-Sent Events) Transport**.
 
-In this mode, the MCP host/client spawns the server process directly and communicates via standard input/output.
+### Running the Server
 
-#### Configuration:
+Start the server using `uv`:
 
-Add the following configuration to your client's settings file (e.g., `mcp_config.json` or `claude_desktop_config.json`):
+```bash
+uv run --project c:/GitHub/MCP/mcp-server-bandit c:/GitHub/MCP/mcp-server-bandit/src/main.py
+```
+This starts the SSE server at `http://localhost:3001`.
+
+### Configuration
+
+Add the following to your client's settings (e.g. `mcp_config.json`):
 
 ```json
 {
   "mcpServers": {
     "bandit": {
-      "command": "uv",
-      "args": [
-        "run",
-        "--project",
-        "c:/GitHub/MCP/mcp-server-bandit",
-        "c:/GitHub/MCP/mcp-server-bandit/src/main.py"
-      ]
+      "serverURL": "http://localhost:3001/sse"
     }
   }
 }
 ```
 
-Make sure the entry point in [src/main.py](file:///c:/GitHub/MCP/mcp-server-bandit/src/main.py) is configured for STDIO:
+Make sure the entry point in [src/main.py](file:///c:/GitHub/MCP/mcp-server-bandit/src/main.py) is configured for SSE:
 
 ```python
+mcp = FastMCP("bandit", host="localhost", port=3001)
+
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    mcp.run(transport="sse")
 ```
 
 ---

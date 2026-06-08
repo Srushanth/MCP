@@ -4,7 +4,7 @@ A Model Context Protocol (MCP) server built with Python and [FastMCP](https://gi
 
 ## Features
 
-- **STDIO Transport**: Runs via standard input/output, which is compatible with most MCP hosts and clients (e.g., Gemini IDE, Claude Desktop).
+- **SSE Transport**: Runs over HTTP using Server-Sent Events (SSE) on port `3007`, permitting background orchestration and concurrent access.
 - **Tools**:
   - `health`: Checks the health of the Ruff MCP server.
   - `list_rules`: Lists all available rules in Ruff.
@@ -33,35 +33,38 @@ uv sync
 
 ## Configuration & Usage
 
-### STDIO Transport (Default & Recommended)
+This server is configured to run over **SSE (Server-Sent Events) Transport**.
 
-In this mode, the MCP host/client spawns the server process directly and communicates via standard input/output.
+### Running the Server
 
-#### Configuration:
+Start the server using `uv`:
 
-Add the following configuration to your client's settings file (e.g., `mcp_config.json` or `claude_desktop_config.json`):
+```bash
+uv run --project c:/GitHub/MCP/mcp-server-ruff c:/GitHub/MCP/mcp-server-ruff/src/main.py
+```
+This starts the SSE server at `http://localhost:3007`.
+
+### Configuration
+
+Add the following to your client's settings (e.g. `mcp_config.json`):
 
 ```json
 {
   "mcpServers": {
     "ruff": {
-      "command": "uv",
-      "args": [
-        "run",
-        "--project",
-        "c:/GitHub/MCP/mcp-server-ruff",
-        "c:/GitHub/MCP/mcp-server-ruff/src/main.py"
-      ]
+      "serverURL": "http://localhost:3007/sse"
     }
   }
 }
 ```
 
-Make sure the entry point in [src/main.py](file:///c:/GitHub/MCP/mcp-server-ruff/src/main.py) is configured for STDIO:
+Make sure the entry point in [src/main.py](file:///c:/GitHub/MCP/mcp-server-ruff/src/main.py) is configured for SSE:
 
 ```python
+mcp = FastMCP("ruff", host="localhost", port=3007)
+
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    mcp.run(transport="sse")
 ```
 
 ---

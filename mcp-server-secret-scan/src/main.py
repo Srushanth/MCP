@@ -19,7 +19,7 @@ from detect_secrets import SecretsCollection
 from detect_secrets.settings import default_settings
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("secret-scan")
+mcp = FastMCP("secret-scan", host="localhost", port=3008)
 
 
 @mcp.tool(
@@ -290,4 +290,4 @@ def scan_directory(
 
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    mcp.run(transport="sse")

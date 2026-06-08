@@ -18,7 +18,7 @@ import tempfile
 import subprocess
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("radon")
+mcp = FastMCP("radon", host="localhost", port=3006)
 
 
 @mcp.tool(
@@ -235,4 +235,4 @@ def get_maintainability_of_code(code: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    mcp.run(transport="sse")

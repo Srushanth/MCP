@@ -4,7 +4,7 @@ A Model Context Protocol (MCP) server built with Python and [FastMCP](https://gi
 
 ## Features
 
-- **STDIO Transport**: Runs via standard input/output, which is compatible with most MCP hosts and clients (e.g., Gemini IDE, Claude Desktop).
+- **SSE Transport**: Runs over HTTP using Server-Sent Events (SSE) on port `3003`, permitting background orchestration and concurrent access.
 - **Tools**:
   - `list_dir`: List all files and folders in a directory.
   - `list_files`: List only the files in a directory.
@@ -37,65 +37,39 @@ uv sync
 
 ## Configuration & Usage
 
-### 1. STDIO Transport (Default & Recommended)
+This server is configured to run over **SSE (Server-Sent Events) Transport**.
 
-In this mode, the MCP host/client spawns the server process directly and communicates via standard input/output.
+### Running the Server
 
-#### Configuration:
+Start the server using `uv`:
 
-Add the following configuration to your client's settings file (e.g., `mcp_config.json` or `claude_desktop_config.json`):
+```bash
+uv run --project c:/GitHub/MCP/mcp-server-directry-management c:/GitHub/MCP/mcp-server-directry-management/src/main.py
+```
+This starts the SSE server at `http://localhost:3003`.
+
+### Configuration
+
+Add the following to your client's settings (e.g. `mcp_config.json`):
 
 ```json
 {
   "mcpServers": {
     "directory-management": {
-      "command": "uv",
-      "args": [
-        "run",
-        "--project",
-        "c:/GitHub/MCP/mcp-server-directry-management",
-        "c:/GitHub/MCP/mcp-server-directry-management/src/main.py"
-      ]
+      "serverURL": "http://localhost:3003/sse"
     }
   }
 }
 ```
 
-Make sure the entry point in [src/main.py](file:///c:/GitHub/MCP/mcp-server-directry-management/src/main.py) is configured for STDIO:
+Make sure the entry point in [src/main.py](file:///c:/GitHub/MCP/mcp-server-directry-management/src/main.py) is configured for SSE:
 
 ```python
+mcp = FastMCP("directory-management", host="localhost", port=3003)
+
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    mcp.run(transport="sse")
 ```
-
----
-
-### 2. SSE Transport (Alternative)
-
-If you want to run this server over HTTP using Server-Sent Events (SSE):
-
-1. Update the entry point in [src/main.py](file:///c:/GitHub/MCP/mcp-server-directry-management/src/main.py):
-   ```python
-   if __name__ == "__main__":
-       mcp.run(transport="sse")
-   ```
-2. Start the HTTP server:
-   ```bash
-   uv run src/main.py
-   ```
-   This will spin up the server at `http://localhost:8000`.
-3. Configure the client using the SSE `url`:
-   ```json
-   {
-     "mcpServers": {
-       "directory-management": {
-         "url": "http://localhost:8000/sse"
-       }
-     }
-   }
-   ```
-
----
 
 ## Available Tools
 
