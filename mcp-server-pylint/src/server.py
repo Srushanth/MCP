@@ -1,6 +1,9 @@
-def main():
-    print("Hello from mcp-server-pylint!")
+from mcp.server.fastmcp import FastMCP
 
-
-if __name__ == "__main__":
-    main()
+mcp = FastMCP(
+    name="pylint",
+    host="127.0.0.1",
+    port=8000,
+    sse_path="/sse",
+    streamable_http_path="/mcp",
+)
